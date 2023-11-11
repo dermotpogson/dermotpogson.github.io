@@ -144,7 +144,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title column-body">
       <h1 class="title">NFL Journeymen Head to Head Matchup</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Books</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Sports</div>
+                <div class="quarto-category">data</div>
               </div>
                   </div>
   </div>
@@ -186,6 +188,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For this article, a journeyman has been defined as a player who has been on at least 4 teams during their NFL career. Of the top 260 players in NFL history who have played in the most postseason games, 31 played on 4 or more teams. Since this encompasses players across generations and positions, playoff appearances will be used to measure journeyman success. For the interest of this analysis, the emphasis is being put on players who got to the league, found post-season success as efficiently as possible, and then called it a day. That said, it is still important to consider that success for a journeyman is often just getting to play the game. While accolades and trophies are always the goal, it is the nature of these players just to enjoy the ride. These are the people we call “Football Guys”. Their loyalty is to the game itself.</p>
 <p>Let’s start with efficiency—the players who got it done in as few years as possible.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
@@ -290,6 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
 <span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -300,6 +305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>While his legendary career does not earn him points in today’s efficiency ratings, his name remains eternally celebrated in Canton. Talk about a Football Guy.</p>
 <p>The second half of our considerations for this head-to-head match up comes from each player’s value to their respective organization at any given time. For this calculation, look at the number of playoff game appearances per team played for.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="at">data=</span>journeymen, <span class="fu">aes</span>(<span class="at">x=</span>Teams, <span class="at">y=</span>PAPT),<span class="at">color=</span><span class="st">"darkgrey"</span>)<span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_beeswarm</span>(<span class="at">data=</span>br, <span class="fu">aes</span>(<span class="at">x=</span>Teams, <span class="at">y=</span>PAPT),<span class="at">color=</span><span class="st">"#AA0000"</span>)<span class="sc">+</span></span>
@@ -320,6 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -331,6 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For the 7s, you’ll notice there is only one name. Tim McKyer might represent this list better than anyone. He spent 12 years in the league, had 33 interceptions, and was a member of the 1986 NFL All Rookie Team. He was also a 3x Super Bowl Champion. That is more than most people on this list or even the world can say.</p>
 <p>By combining those two points of analysis, a final weighted score can be calculated by dividing both the PAPS and PAPT by their averages and adding them together. This puts both numbers into perspective relative to the other players on the list and, by combining those ratios, ensures that both attributes are evenly considered.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>journey15, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Name, PAWS), <span class="at">weight=</span>PAWS),<span class="at">fill=</span><span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>br, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Name, PAWS), <span class="at">weight=</span>PAWS),<span class="at">fill=</span><span class="st">"#AA0000"</span>)<span class="sc">+</span></span>
@@ -353,6 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
